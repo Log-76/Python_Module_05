@@ -34,7 +34,9 @@ class NumericProcessor(DataProcessor):
 
 class TextProcessor(DataProcessor):
     def process(self, data: None) -> str:
-        pass
+        if isinstance(data, str):
+            return True
+        return False
 
     def validate(self, data: None) -> bool:
         if isinstance(data, str):
@@ -42,17 +44,22 @@ class TextProcessor(DataProcessor):
         return False
 
     def format_output(self, data: None) -> str:
-        pass
+        tab = []
+        for i in data.split(""):
+            tab.append(i)
+        return (f"Output: Processed text: {len(data)} "
+                f"characters, {len(tab)} words")
 
 
 class LogProcessor(DataProcessor):
     def process(self, data: None) -> str:
-        pass
+        return data.split("ERROR: ")[1]
 
     def validate(self, data: None) -> bool:
-        if isinstance(data, int):
+        if isinstance(data, str) and "ERROR" in data:
+            print("Log entry verified")
             return True
         return False
 
     def format_output(self, data: None) -> str:
-        pass
+        print("[ALERT] ERROR level detected:", {data})
