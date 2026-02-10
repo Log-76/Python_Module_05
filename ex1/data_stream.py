@@ -94,6 +94,10 @@ class StreamProcessor:
     def add_stream(self, stream: DataStream):
         self.streams.append(stream)
 
-    def process_all_streams(self, data_batch: List[Any]):
-        for i in self.add_stream:
-            i.process_batch(self, data_batch)
+    def process_all_streams(self, batches: Dict[str, List[Any]]):
+        for stream in self.streams:
+            try:
+                batch_specifique = batches[stream.stream_id]
+                print(stream.process_batch(batch_specifique))
+            except KeyError:
+                print(f"Warning: No batch for {stream.stream_id}")
