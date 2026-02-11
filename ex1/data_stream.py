@@ -3,7 +3,7 @@ from typing import Any, Optional, List, Union, Dict
 
 
 class DataStream(ABC):
-    def __init__(self, stream_id):
+    def __init__(self, stream_id: str) -> None:
         super().__init__()
         self.stream_id = stream_id
 
@@ -27,7 +27,7 @@ class DataStream(ABC):
 
 
 class SensorStream(DataStream):
-    def __init__(self, stream_id):
+    def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
 
     def process_batch(self, data_batch: List[Any]) -> str:
@@ -50,7 +50,7 @@ class SensorStream(DataStream):
 
 
 class TransactionStream(DataStream):
-    def __init__(self, stream_id):
+    def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
 
     def process_batch(self, data_batch: List[Any]) -> str:
@@ -71,7 +71,7 @@ class TransactionStream(DataStream):
 
 
 class EventStream(DataStream):
-    def __init__(self, stream_id):
+    def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
 
     def process_batch(self, data_batch: List[Any]) -> str:
@@ -88,7 +88,7 @@ class EventStream(DataStream):
 
 
 class StreamProcessor:
-    def __init__(self):
+    def __init__(self) -> None:
         self.streams = []
 
     def add_stream(self, stream: DataStream):
